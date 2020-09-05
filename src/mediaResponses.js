@@ -1,7 +1,7 @@
 const fs = require('fs'); // pull in the filesystem module
 const path = require('path');
 
-//Set up stream variable
+// Set up stream variable
 const setUpStream = (file, start, end, response) => {
   const stream = fs.createReadStream(file, { start, end });
 
@@ -16,7 +16,7 @@ const setUpStream = (file, start, end, response) => {
   return stream;
 };
 
-//set up chunk of video to load and send
+// set up chunk of video to load and send
 const setUpBytes = (request, stats) => {
   let { range } = request.headers;
 
@@ -48,7 +48,7 @@ const setUpBytes = (request, stats) => {
   return values;
 };
 
-//write to response head
+// write to response head
 const writeToHead = (response, values, contentType) => {
   response.writeHead(206, {
     'Content-Range': `bytes ${values.start} - ${values.end}/${values.total}`,
@@ -58,7 +58,7 @@ const writeToHead = (response, values, contentType) => {
   });
 };
 
-//load the file
+// load the file
 const loadFile = (request, response, pathName, contentType) => {
   const file = path.resolve(__dirname, pathName);
 
@@ -80,7 +80,7 @@ const loadFile = (request, response, pathName, contentType) => {
   });
 };
 
-//different functions to load the different media.
+// different functions to load the different media.
 const getParty = (request, response) => {
   loadFile(request, response, '../client/party.mp4', 'video/mp4');
 };
